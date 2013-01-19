@@ -9,8 +9,8 @@ Get a try here : http://openfrance.lightjs.org/#climat_pluie/1999
 
 Any pull request are accepted. (awesome if it's with data like `/data/region.csv`)
 
-To download: https://github.com/Lightviz/openfrance/archive/master.zip
+To download: https://github.com/lightviz/openfrance/archive/master.zip
 
-To modify: `git clone https://github.com/Lightviz/openfrance.git`
+To modify: `git clone https://github.com/lightviz/openfrance.git`
 
 Source from: http://www.linternaute.com
