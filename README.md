@@ -13,4 +13,4 @@ To download: https://github.com/lightviz/openfrance/archive/master.zip
 
 To modify: `git clone https://github.com/lightviz/openfrance.git`
 
-Source from: http://www.linternaute.com
+Source from: http://www.linternaute.com and http://geocommons.com/
