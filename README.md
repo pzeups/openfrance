@@ -1,7 +1,7 @@
 Open-France
 ==========
 
-<a href="http://openfrance.lightjs.org/"><img src="http://openfrance.lightjs.org/preview.png" width="202"></a>
+<a href="http://openfrance.lightjs.org/"><img src="http://openfrance.lightjs.org/preview.png" width="600"></a>
 
 An anamorphic projection of France with animation. (including departements and regions)
 
