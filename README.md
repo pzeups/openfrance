@@ -14,3 +14,5 @@ To download: https://github.com/lightviz/openfrance/archive/master.zip
 To modify: `git clone https://github.com/lightviz/openfrance.git`
 
 Source from: http://www.linternaute.com and http://geocommons.com/
+
+Based on d3js work of <a href="https://twitter.com/jasondavies">Jason Davies</a> & <a href="http://prag.ma/code/d3-cartogram/">cartogram.js</a>
