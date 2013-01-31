@@ -8,33 +8,34 @@
 
     window.onhashchange = function() { parseHash(); };
 
+	var colors = generic_color = colorbrewer.RdYlBu[3].reverse().map(function(rgb) { return d3.hsl(rgb); });
+
     var percent = (function() {
           var fmt = d3.format(".2f");
           return function(n) { return fmt(n) + "%"; };
         })(),
         fields = [
           {name: "Sélectionnez une donnée", id: "none"},
-          {name: "Demographie > Naissance", id: "demographie_naissance", key: "demographie_naissance_%d", years: [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010]},
-          {name: "Climat > Pluie (mm)", id: "climat_pluie", key: "climat_pluie_%d", years: [1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011]},
-          {name: "Climat > Max Chaleur (°C)", id: "climat_chaleur", key: "climat_chaleur_%d", years: [2010,2011]},
-          {name: "Climat > Min Chaleur (°C)", id: "climat_froid", key: "climat_froid_%d", years: [2010,2011]},
-          {name: "Climat > Ensoleillement (h)", id: "climat_ensoleillement", key: "climat_ensoleillement_%d", years: [2010,2011]},
-          {name: "Climat > Vent (km/h)", id: "climat_vent", key: "climat_vent_%d", years: [2010,2011]},
-          {name: "Energie > Eoliennes", id: "energie_eolienne", key: "energie_eolienne_%d", years: [2012]},
-          {name: "Energie > Eoliennes Puissance (MW)", id: "energie_puissance_eolienne", key: "energie_puissance_eolienne_%d", years: [2012]},
-          {name: "Energie > Photovoltaique", id: "energie_photovoltaique", key: "energie_photovoltaique_%d", years: [2012]},
-          {name: "Energie > Photovoltaique Puissance (MW)", id: "energie_puissance_photovoltaique", key: "energie_puissance_photovoltaique_%d", years: [2012]},
-          {name: "Alcool > Consommation > 17 ans (%)", id: "alcool_jeunes", key: "alcool_jeunes_2005", years: [2005]},
-          {name: "Route > Morts", id: "route_morts", key: "route_morts", years: ['(2005-2011)']},
-          {name: "Route > Accidents", id: "route_accidents", key: "route_accidents", years: ['(2005-2011)']},
-          {name: "Route > Blessés", id: "route_blesses", key: "route_blesses", years: ['(2005-2011)']},
-          {name: "Route > Indemnes", id: "route_indemnes", key: "route_indemnes", years: ['(2005-2011)']},
+          {name: "Demographie > Naissance", id: "demographie_naissance", key: "demographie_naissance_%d", years: [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010], colors: colorbrewer.PuRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Climat > Pluie (mm)", id: "climat_pluie", key: "climat_pluie_%d", years: [1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011], colors: colorbrewer.Blues[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Climat > Ensoleillement (h)", id: "climat_ensoleillement", key: "climat_ensoleillement_%d", years: [2010,2011], colors: colorbrewer.Oranges[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Climat > Vent (km/h)", id: "climat_vent", key: "climat_vent_%d", years: [2010,2011], colors: colorbrewer.BuGn[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Climat > Max Chaleur (°C)", id: "climat_chaleur", key: "climat_chaleur_%d", years: [2010,2011], colors: colorbrewer.Reds[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Climat > Min Chaleur (°C)", id: "climat_froid", key: "climat_froid_%d", years: [2010,2011], colors: colorbrewer.Purples[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Energie > Eoliennes", id: "energie_eolienne", key: "energie_eolienne_%d", years: [2012], colors: colorbrewer.Greens[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Energie > Eoliennes Puissance (MW)", id: "energie_puissance_eolienne", key: "energie_puissance_eolienne_%d", years: [2012], colors: colorbrewer.BuGn[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Energie > Photovoltaique", id: "energie_photovoltaique", key: "energie_photovoltaique_%d", years: [2012], colors: colorbrewer.Oranges[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Energie > Photovoltaique Puissance (MW)", id: "energie_puissance_photovoltaique", key: "energie_puissance_photovoltaique_%d", years: [2012], colors: colorbrewer.Reds[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Alcool > Consommation > 17 ans (%)", id: "alcool_jeunes", key: "alcool_jeunes_2005", years: [2005], colors: colorbrewer.BuPu[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Route > Morts", id: "route_morts", key: "route_morts", years: ['(2005-2011)'], colors: colorbrewer.Greys[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Route > Accidents", id: "route_accidents", key: "route_accidents", years: ['(2005-2011)'], colors: colorbrewer.YlOrRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Route > Blessés", id: "route_blesses", key: "route_blesses", years: ['(2005-2011)'], colors: colorbrewer.Greys[3].map(function(rgb) { return d3.hsl(rgb); }) },
+          {name: "Route > Indemnes", id: "route_indemnes", key: "route_indemnes", years: ['(2005-2011)'], colors: colorbrewer.YlOrBr[3].map(function(rgb) { return d3.hsl(rgb); }) },
         ],
         years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,'(2005-2011)'],
         fieldsById = d3.nest().key(function(d) { return d.id; }).rollup(function(d) { return d[0]; }).map(fields),
         field = fields[0],
-        year = years[0],
-        colors = colorbrewer.RdYlBu[3].reverse().map(function(rgb) { return d3.hsl(rgb); });
+        year = years[0];
 
     var body = d3.select("body"),
         stat = d3.select("#status");
@@ -210,9 +211,7 @@
         .range([1, 100]);
 
       // tell the cartogram to use the scaled values
-      carto.value(function(d) {
-        return scale(value(d));
-      });
+      carto.value(function(d) { return scale(value(d)); });
 
       // generate the new features, pre-projected
       var features = carto(topology, geometries).features;
@@ -275,7 +274,6 @@
       field = fieldsById[desiredFieldId] || fields[0];
       year = (years.indexOf(desiredYear) > -1) ? desiredYear : years[0];
 
-
       fieldSelect.property("selectedIndex", fields.indexOf(field));
 
       if (field.id === "none") {
@@ -284,7 +282,8 @@
         resetBar();
 
       } else {
-
+		if( field.colors ) colors = field.colors;
+		
         if (field.years) {
           if (field.years.indexOf(year) === -1) year = field.years[0];
           yearSelect.selectAll("option").attr("disabled", function(y) { return (field.years.indexOf(y) === -1) ? "disabled" : null; });
