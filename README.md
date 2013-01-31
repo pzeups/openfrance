@@ -1,7 +1,7 @@
 Open-France
 ==========
 
-#UPDATE 31/01/13 : added color sets depending of data
+*UPDATE 31/01/12: added color sets depending of data*
 
 <a href="http://openfrance.lightjs.org/#climat_pluie/1999"><img src="http://openfrance.lightjs.org/preview.png" width="600"></a>
 
