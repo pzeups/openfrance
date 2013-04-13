@@ -1,8 +1,8 @@
 
-    var filename = 'regions',
+    var filename = 'departements',
         mapname = filename+'.topojson',
         dataname = filename+'.csv',
-        play = true;
+        play = false;
 
     if (!document.createElementNS) document.getElementsByTagName("form")[0].style.display = "none";
 
@@ -14,24 +14,31 @@
           var fmt = d3.format(".2f");
           return function(n) { return fmt(n) + "%"; };
         })(),
-        fields = [
-          {name: "Sélectionnez une donnée", id: "none"},
-          {name: "Demographie > Naissance", id: "demographie_naissance", key: "demographie_naissance_%d", years: [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010], colors: colorbrewer.PuRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Climat > Pluie (mm)", id: "climat_pluie", key: "climat_pluie_%d", years: [1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011], colors: colorbrewer.Blues[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Climat > Ensoleillement (h)", id: "climat_ensoleillement", key: "climat_ensoleillement_%d", years: [2010,2011], colors: colorbrewer.Oranges[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Climat > Vent (km/h)", id: "climat_vent", key: "climat_vent_%d", years: [2010,2011], colors: colorbrewer.BuGn[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Climat > Max Chaleur (°C)", id: "climat_chaleur", key: "climat_chaleur_%d", years: [2010,2011], colors: colorbrewer.Reds[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Climat > Min Chaleur (°C)", id: "climat_froid", key: "climat_froid_%d", years: [2010,2011], colors: colorbrewer.Purples[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Energie > Eoliennes", id: "energie_eolienne", key: "energie_eolienne_%d", years: [2012], colors: colorbrewer.Greens[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Energie > Eoliennes Puissance (MW)", id: "energie_puissance_eolienne", key: "energie_puissance_eolienne_%d", years: [2012], colors: colorbrewer.BuGn[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Energie > Photovoltaique", id: "energie_photovoltaique", key: "energie_photovoltaique_%d", years: [2012], colors: colorbrewer.Oranges[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Energie > Photovoltaique Puissance (MW)", id: "energie_puissance_photovoltaique", key: "energie_puissance_photovoltaique_%d", years: [2012], colors: colorbrewer.Reds[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Alcool > Consommation > 17 ans (%)", id: "alcool_jeunes", key: "alcool_jeunes_2005", years: [2005], colors: colorbrewer.BuPu[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Route > Morts", id: "route_morts", key: "route_morts", years: ['(2005-2011)'], colors: colorbrewer.Greys[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Route > Accidents", id: "route_accidents", key: "route_accidents", years: ['(2005-2011)'], colors: colorbrewer.YlOrRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Route > Blessés", id: "route_blesses", key: "route_blesses", years: ['(2005-2011)'], colors: colorbrewer.Greys[3].map(function(rgb) { return d3.hsl(rgb); }) },
-          {name: "Route > Indemnes", id: "route_indemnes", key: "route_indemnes", years: ['(2005-2011)'], colors: colorbrewer.YlOrBr[3].map(function(rgb) { return d3.hsl(rgb); }) },
-        ],
+        forms = {
+            'departements': [
+              {name: "Explorer les départements", id: "none"},
+              {name: "Demographie > Naissance", id: "demographie_naissance", key: "demographie_naissance_%d", years: [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010], colors: colorbrewer.PuRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
+            ],
+            'regions': [
+              {name: "Explorer les régions", id: "none"},
+              {name: "Demographie > Naissance", id: "demographie_naissance", key: "demographie_naissance_%d", years: [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010], colors: colorbrewer.PuRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Climat > Pluie (mm)", id: "climat_pluie", key: "climat_pluie_%d", years: [1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011], colors: colorbrewer.Blues[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Climat > Ensoleillement (h)", id: "climat_ensoleillement", key: "climat_ensoleillement_%d", years: [2010,2011], colors: colorbrewer.Oranges[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Climat > Vent (km/h)", id: "climat_vent", key: "climat_vent_%d", years: [2010,2011], colors: colorbrewer.BuGn[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Climat > Max Chaleur (°C)", id: "climat_chaleur", key: "climat_chaleur_%d", years: [2010,2011], colors: colorbrewer.Reds[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Climat > Min Chaleur (°C)", id: "climat_froid", key: "climat_froid_%d", years: [2010,2011], colors: colorbrewer.Purples[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Energie > Eoliennes", id: "energie_eolienne", key: "energie_eolienne_%d", years: [2012], colors: colorbrewer.Greens[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Energie > Eoliennes Puissance (MW)", id: "energie_puissance_eolienne", key: "energie_puissance_eolienne_%d", years: [2012], colors: colorbrewer.BuGn[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Energie > Photovoltaique", id: "energie_photovoltaique", key: "energie_photovoltaique_%d", years: [2012], colors: colorbrewer.Oranges[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Energie > Photovoltaique Puissance (MW)", id: "energie_puissance_photovoltaique", key: "energie_puissance_photovoltaique_%d", years: [2012], colors: colorbrewer.Reds[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Alcool > Consommation > 17 ans (%)", id: "alcool_jeunes", key: "alcool_jeunes_2005", years: [2005], colors: colorbrewer.BuPu[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Route > Morts", id: "route_morts", key: "route_morts", years: ['(2005-2011)'], colors: colorbrewer.Greys[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Route > Accidents", id: "route_accidents", key: "route_accidents", years: ['(2005-2011)'], colors: colorbrewer.YlOrRd[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Route > Blessés", id: "route_blesses", key: "route_blesses", years: ['(2005-2011)'], colors: colorbrewer.Greys[3].map(function(rgb) { return d3.hsl(rgb); }) },
+              {name: "Route > Indemnes", id: "route_indemnes", key: "route_indemnes", years: ['(2005-2011)'], colors: colorbrewer.YlOrBr[3].map(function(rgb) { return d3.hsl(rgb); }) },
+            ]
+        },
+        fields = forms[filename],
         years = [1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,'(2005-2011)'],
         fieldsById = d3.nest().key(function(d) { return d.id; }).rollup(function(d) { return d[0]; }).map(fields),
         field = fields[0],
@@ -81,15 +88,15 @@
     var proj = d3.geo.albers().translate([mwidth / 2, mheight / 2]).origin([2,46]).scale(5400*mheight/1060);
     //var proj = d3.geo.mercator().translate([mwidth / 2, mheight / 2])//.origin([2,46]).scale(5400*mheight/1060);
     var path = d3.geo.path().projection(proj);
-
-    var layer = map.append("g").attr("id", "layer"),
-        regions = layer.append("g").attr("id", "regions").selectAll("path");
-
-
+    
     var topology,
         geometries,
         rawData,
         dataById = {},
+        value = function(d) {
+            if( !d.properties || !d.properties[key] ) console.log('no data for: '+d.id);
+            else return +d.properties[key];
+          },
         carto = d3.cartogram()
           .projection(proj)
           .properties(function(d) {
@@ -100,12 +107,19 @@
           });
 
     var margin = {top: 5, right: 20, bottom: 90, left: 80},
-          angle = 320,
-          duration = 750,
-          delay = 20,
-          width = parseInt(d3.select("#bar").style('width')) - margin.left - margin.right,
-          height = parseInt(d3.select("#bar").style('height')) - margin.top - margin.bottom;
+        angle = 320,
+        duration = 750,
+        delay = 20,
+        width = parseInt(d3.select("#bar").style('width')) - margin.left - margin.right,
+        height = parseInt(d3.select("#bar").style('height')) - margin.top - margin.bottom,
+        themap;    
+    
+    var layer = map.append("g").attr("id", "layer"),
+        spacial = layer.append("g").attr("id", "spacial")
+            .attr('transform', 'translate('+(width*.4)+',0)')
+            .selectAll("path");
 
+    
     var formatPercent = d3.format(""),
         x = d3.scale.ordinal().rangeRoundBands([0, width], .1, 1),
         y = d3.scale.linear().range([height, 0]);
@@ -143,7 +157,7 @@
           path = d3.geo.path()
             .projection(proj);
 
-      regions = regions.data(features)
+      spacial = spacial.data(features)
         .enter()
         .append("path")
           .attr("class", "region")
@@ -151,9 +165,11 @@
           .attr("fill", "black")
           .attr("d", path);
 
-      regions.append("title");
+      spacial.append("title");
 
       parseHash();
+      
+      over();
     }
 
     function reset() {
@@ -164,16 +180,35 @@
           path = d3.geo.path()
             .projection(proj);
 
-      regions.data(features)
+      spacial.data(features)
         .transition()
           .duration(duration)
           .ease("linear")
           .attr("fill", "gray")
           .attr("d", path);
 
-      regions.select("title")
+      spacial.select("title")
         .text(function(d,i) { return d.id; });
 
+    }
+    
+    function over() {
+        setTimeout(function() {
+          spacial
+            .on('mouseover', function(d) {
+                d3.select(this)
+                    .style('opacity', .8)
+                    .style('stroke', color(value(d)))
+                    .style('stroke-width', 1.5)
+                d3.select('#spacialcontent').html(d.id+(d.properties.num>0?' ['+d.properties.num+']':''));
+            })
+            .on('mouseout', function(d) {
+                d3.select(this).transition().duration(100).delay(200)
+                    .style('opacity', 1)
+                    .style('stroke', '#666')
+                    .style('stroke-width', .5)
+            })
+      }, duration)
     }
 
     function update() {
@@ -185,11 +220,7 @@
           fmt = (typeof field.format === "function")
             ? field.format
             : d3.format(field.format || ","),
-          value = function(d) {
-            if( !d.properties || !d.properties[key] ) console.log('no data for: '+d.id);
-            else return +d.properties[key];
-          },
-          values = regions.data()
+          values = spacial.data()
             .map(value)
             .filter(function(n) {
               return !isNaN(n);
@@ -215,21 +246,21 @@
 
       // generate the new features, pre-projected
       var features = carto(topology, geometries).features;
-
+    
       // update the data
-      regions.data(features)
+      spacial.data(features)
         .select("title")
           .text(function(d,i) {
             return [d.id, fmt(value(d))].join(": ");
           });
 
-      regions.transition()
+      spacial.transition()
         .duration(duration)
         .ease("linear")
         .attr("fill", function(d) {
           return color(value(d));
         })
-        .attr("d", carto.path);
+        .attr("d", carto.path)
       
       var delta = (Date.now() - start) / 1000;
       stat.text(["calculé en", delta.toFixed(1), "secondes"].join(" "));
@@ -247,6 +278,8 @@
               changeY(field.key.replace("%d", year),svg.transition().duration(duration));
           }, duration+delay*values.length);
       }
+      
+      over();
     }
 
     var deferredUpdate = (function() {
@@ -280,7 +313,7 @@
         yearSelect.attr("disabled", "disabled");
         reset();
         resetBar();
-
+        
       } else {
 		if( field.colors ) colors = field.colors;
 		
@@ -301,14 +334,10 @@
       }
     }
 
-
-
-
     function initBar(data){
         
         data.forEach(function(d) { for( var k in d ) if( k != 'NAME' ) d[k] = +d[k]; });
-
-
+        
         x.domain(data.map(function(d) { return d.NAME; }));
         y.domain([0, 0]);
 
@@ -342,8 +371,6 @@
             .attr("height", function(d) { return height - y(0); });
 
         d3.select("input").on("change", function() { sortX(svg.transition().duration(duration)); });
-
-
 
     /*
       var sortTimeout = setTimeout(function() {

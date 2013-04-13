@@ -7,11 +7,13 @@
   }
 
   h1 {
+    float: left;
     font-size: 200%;
     margin: 0 0 15px 0;
   }
 
   h2 {
+    float: left;
     font-size: 160%;
     margin: 0 0 10px 0;
   }
@@ -23,6 +25,11 @@
   form, form > * {
     margin: 0;
   }
+  
+  form {
+    float:left;
+    clear:both;
+  }
 
   #status {
     color: #999;
@@ -32,8 +39,8 @@
     display: block;
     position: absolute;
     top: 0px;
-    right: 40px;
-    width: 60%;
+    right: 0px;
+    width: 100%;
     height: 100%;
     z-index: -1;
   }
@@ -47,6 +54,7 @@
   }
 
   path.region {
+    opacity: 1;
     stroke: #666;
     stroke-width: .5;
   }
@@ -127,7 +135,7 @@
     color: #F85910;  
   }
   
-  #fork-me {
+  #forkme {
     position: fixed; /* options: fixed, absolute */
     top: 0;
     right: 0;
@@ -135,12 +143,12 @@
     width: 140px;
     height: 140px;
     text-indent: -9999px;
-    background-image: url("forkme.png");
+    background-image: url("../img/forkme.png");
   }
 
   @media (-webkit-min-device-pixel-ratio: 2) {
-    #fork-me {
-        background-image: url("forkme@2x.png") !important;
+    #forkme {
+        background-image: url("../img/forkme@2x.png") !important;
         -webkit-background-size: 140px 140px;
     }
   }
