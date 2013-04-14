@@ -23,5 +23,6 @@ Based on d3js work of <a href="http://www.jasondavies.com">Jason Davies</a> & <a
 
 ## TODO
 
-- more data
+- ~~flat design~~
+- ~~more data~~
 - ~~added color sets depending of data~~
