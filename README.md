@@ -3,7 +3,7 @@ Open-France
 
 An anamorphic projection of France with animation. (including departements and regions)
 
-<a href="http://openfrance.lightjs.org/#climat_pluie/1999"><img src="http://openfrance.lightjs.org/img/preview.png" width="600"></a>
+<a href="http://openfrance.lightjs.org/#climat_pluie/1999"><img src="http://openfrance.lightjs.org/images/preview.png" width="600"></a>
 
 Get a try [here](http://openfrance.lightjs.org/#climat_pluie/1999)
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>France - Information</title>
+    <meta charset="utf-8">
+    <script src="lib/d3.v2.min.js"></script>
+    <script src="lib/colorbrewer.js"></script>
+    <script src="lib/topojson.js"></script>
+    <script src="js/cartogram.js"></script>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="css/style.css" media="all" rel="stylesheet" />
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <a id="forkme" href="https://github.com/lightviz/openfrance">Fork me on GitHub</a>
+    <div id="header">
+        <h1>France - Data Explorer</h1>
+      <form style="float: left; clear: both;">
+        <p>
+          <label>Afficher par <select id="field"></select></label>
+          <label>en <select id="year"></select></label>
+          <span id="status"></span>
+        </p>
+        <br />
+        <p class="checkboxes">
+            <input id="scaled" checked="checked" type="checkbox"> <label for="scaled">Anamorphique</label>
+            <input id="play" checked="checked" type="checkbox"> <label for="play">Lecture</label>
+            <input id="sort" type="checkbox"> <label for="sort">Trier</label>
+        </p>
+      </form>
+    </div>
+    <div id="map-container">
+        <svg id="map"></svg>
+    </div>
+    <div id="container">
+      <div id="bar-container">
+        <label><input type="checkbox" id="check">Trier les valeurs</label>
+        <svg id="bar"></svg>
+      </div>
+    </div>
+    <div id="author">devsign&eacute; par <a href="https://twitter.com/light_viz" class="twitter-follow-button" data-show-count="true">@light_viz</a></div>
+  </body>
+  <script src="js/france.js"></script>
+  <script src="analytic.js"></script>
+</html>
